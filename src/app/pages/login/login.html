@@ -1,0 +1,17 @@
+<section>
+  
+
+  <div class="form">
+    <input type="email" placeholder="Email" [(ngModel)]="email" />
+    <input type="password" placeholder="Password" [(ngModel)]="password" />
+    <input type="text" placeholder="Name" [(ngModel)]="name" />
+
+    <button (click)="login(email, password)">
+      Login
+    </button>
+
+    <button (click)="logout()">
+      Logout
+    </button>
+  </div>
+</section>
