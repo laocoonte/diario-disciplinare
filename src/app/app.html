@@ -1,12 +1,14 @@
 <header>
+  <span>{{ appwrite.ID }}</span>
   @if(appwrite.loggedInUser()) {
-    <span>{{ appwrite.loggedInUser()?.name }}</span>
-    <button (click)="logout()">logout</button>
+  <span>{{ appwrite.loggedInUser()?.name }}</span>
+  <button (click)="logout()">logout</button>
   }
 </header>
 
 @if(appwrite.loggedInUser()) {
-  <app-nav></app-nav>
+<app-nav></app-nav>
 }
+<app-toast></app-toast>
 
 <router-outlet></router-outlet>

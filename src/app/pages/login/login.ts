@@ -1,25 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppwriteService } from '../../appwrite.service';
+import { AppwriteService } from '../../services/appwrite.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   imports: [FormsModule],
-  providers: [AppwriteService, Router],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
 export class Login {
-  loggedInUser: any = null;
   email: string = '';
   password: string = '';
   name: string = '';
+  protected appwrite = inject(AppwriteService);
+  private router = inject(Router);
 
-  constructor(private appwrite: AppwriteService, private router: Router) {
+  constructor() {
     effect(() => {
-      if (this.appwrite.loggedInUser()) {
+      if (!!this.appwrite.loggedInUser()) {
         this.router.navigate(['/calendar']);
       }
     });
@@ -27,6 +27,9 @@ export class Login {
 
   async login(email: string, password: string) {
     await this.appwrite.login(email, password);
+    if (!!this.appwrite.loggedInUser()) {
+      this.router.navigate(['/calendar']);
+    }
   }
 
   async logout() {

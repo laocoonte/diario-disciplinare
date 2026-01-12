@@ -1,4 +1,5 @@
 <nav>
-    <a routerLink="/calendar" routerLinkActive="active">Calendar</a>
-    <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+    @for (route of routes; track $index) {
+    <a [routerLink]="route.path" routerLinkActive="active">{{ route.data?.['title'] }}</a>
+    }
 </nav>
