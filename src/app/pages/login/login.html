@@ -1,16 +1,17 @@
 <section>
-
-
   <form>
-    <input name="email" type="email" placeholder="Email" [(ngModel)]="email" />
-    <input name="password" type="password" placeholder="Password" [(ngModel)]="password" />
+    <tui-textfield>
+      <label tuiLabel>Email</label>
+      <input name="email" type="email" tuiTextfield placeholder="Email" [(ngModel)]="email" />
+    </tui-textfield>
+    <tui-textfield>
+      <label tuiLabel>Password</label>
+      <input name="password" type="password" tuiTextfield placeholder="Password" [(ngModel)]="password" />
+    </tui-textfield>
 
-    <button (click)="login(email, password)">
+
+    <button tuiButton type="button" (click)="login(email, password)">
       Login
-    </button>
-
-    <button (click)="logout()">
-      Logout
     </button>
   </form>
 </section>

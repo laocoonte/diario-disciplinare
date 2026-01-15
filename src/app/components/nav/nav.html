@@ -1,5 +1,7 @@
 <nav>
-    @for (route of routes; track $index) {
-    <a [routerLink]="route.path" routerLinkActive="active">{{ route.data?.['title'] }}</a>
-    }
+    <tui-tabs [activeItemIndex]="activeItemIndex()" (activeItemIndexChange)="onTabChange($event)">
+        @for (route of routes; track $index) {
+        <a tuiTab [routerLink]="route.path" routerLinkActive>{{ route.data?.['title'] }}</a>
+        }
+    </tui-tabs>
 </nav>

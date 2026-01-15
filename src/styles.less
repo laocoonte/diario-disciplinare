@@ -1,0 +1,11 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+// Custom Taiga UI toast styles for positive/negative appearance
+tui-toast[data-appearance='positive'] > div > div {
+  background: var(--tui-success-bg, #e6f9ed) !important;
+  color: var(--tui-success, #1a7f37) !important;
+}
+tui-toast[data-appearance='negative'] > div > div {
+  background: var(--tui-error-bg, #fdeaea) !important;
+  color: var(--tui-error, #d32f2f) !important;
+}

@@ -3,12 +3,13 @@ import { effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppwriteService } from '../../services/appwrite.service';
 import { Router } from '@angular/router';
+import { TuiButton, TuiLabel, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, TuiTextfield, TuiLabel, TuiButton],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
+  styleUrl: './login.less',
 })
 export class Login {
   email: string = '';

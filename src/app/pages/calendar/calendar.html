@@ -1,59 +1,39 @@
+<app-calendar-inputs [selectedMonth]="selectedMonth()" [selectedYear]="selectedYear()"
+    (monthChange)="onMonthChange($event)" (yearChange)="onYearChange($event)"></app-calendar-inputs>
+
 @if (isTaskLoading()) {
-<div class="loading-indicator">
-    <span>Loading tasks...</span>
-</div>
+<tui-loader size="m" center></tui-loader>
 } @else if (tasks()?.length === 0) {
 <div class="no-tasks-message">
-    <span>No tasks available for this month.</span>
+    <span>No task created.</span>
 </div>
 } @else {
-<div class="calendar-container">
-    <table class="calendar-table">
-        <thead>
-            <tr>
-                <th>Day</th>
-                @for(task of tasks(); track task) {
-                <th>{{ task.title }}</th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @for(day of daysInMonth(); track day) {
-            <tr>
-                <td>{{ day }}</td>
-                @for(task of tasks(); track task) {
-                <td>
-                    <!-- Placeholder for task status/content -->
-                    <span>-</span>
-                </td>
-                }
-            </tr>
+<table class="calendar-table" tuiTable>
+    <thead>
+        <tr>
+            <th tuiTh>Day</th>
+            @for(task of tasks(); track task) {
+            <th tuiTh>
+                <div>
+                    <span>{{ task.title }}</span>
+                    <tui-icon size="s" icon="@tui.info" [tuiTooltip]="task.description"></tui-icon>
+                </div>
+            </th>
             }
-        </tbody>
-    </table>
-</div>
-}
-
-<table cdk-table [dataSource]="dataSource()">
-    <!-- User name Definition -->
-    <ng-container cdkColumnDef="username">
-        <th cdk-header-cell *cdkHeaderCellDef> User name </th>
-        <td cdk-cell *cdkCellDef="let row"> {{row.username}} </td>
-    </ng-container>
-
-    <!-- Age Definition -->
-    <ng-container cdkColumnDef="age">
-        <th cdk-header-cell *cdkHeaderCellDef> Age </th>
-        <td cdk-cell *cdkCellDef="let row"> {{row.age}} </td>
-    </ng-container>
-
-    <!-- Title Definition -->
-    <ng-container cdkColumnDef="title">
-        <th cdk-header-cell *cdkHeaderCellDef> Title </th>
-        <td cdk-cell *cdkCellDef="let row"> {{row.title}} </td>
-    </ng-container>
-
-    <!-- Header and Row Declarations -->
-    <tr cdk-header-row *cdkHeaderRowDef="['username', 'age', 'title']"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: ['username', 'age', 'title']"></tr>
+        </tr>
+    </thead>
+    <tbody tuiTbody>
+        @for(row of dataSource(); track row.day) {
+        <tr>
+            <td tuiTd>{{ row.day }}</td>
+            @for(task of row.dailies; track task; let i = $index) {
+            <td tuiTd>
+                <app-calendar-cell (createDaily)="createDailyHandler(row.day, i)"
+                    (updateDaily)="updateDailyHandler($event)" [task]="task" />
+            </td>
+            }
+        </tr>
+        }
+    </tbody>
 </table>
+}

@@ -1,8 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Client, Account, Models, TablesDB } from 'appwrite';
 import { environment } from '../../environments/environment';
-import { ToastService } from '../components/toast/toast.service';
 import { Router } from '@angular/router';
+import { TuiToastService } from '@taiga-ui/kit';
+import { take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class AppwriteService {
   public tableClient: TablesDB;
   public readonly loggedInUser = signal<null | Models.User>(null);
 
-  private toastService = inject(ToastService);
   private router = inject(Router);
+  private toast = inject(TuiToastService);
   constructor() {
     this.client
       .setEndpoint(environment.appwrite.endpoint)
@@ -47,7 +48,11 @@ export class AppwriteService {
       this.loggedInUser.set(user);
     } catch (error) {
       this.updateLoggedInUser(null);
-      this.toastService.show('Login failed: ' + error);
+      this.toast
+        .open('Login failed: ' + error, {
+          appearance: 'negative',
+        })
+        .subscribe();
     }
   }
 

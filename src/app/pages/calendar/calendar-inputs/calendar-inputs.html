@@ -1,0 +1,14 @@
+<section>
+    <tui-textfield tuiChevron>
+        <input tuiComboBox [(ngModel)]="monthInput" (ngModelChange)="onMonthChange($event)" />
+
+        <tui-data-list-wrapper *tuiTextfieldDropdown new [items]="months | tuiFilterByInput" />
+    </tui-textfield>
+
+
+    <tui-textfield tuiChevron>
+        <input tuiComboBox [(ngModel)]="yearInput" (ngModelChange)="onYearChange($event)" />
+
+        <tui-data-list-wrapper *tuiTextfieldDropdown new [items]="years | tuiFilterByInput" />
+    </tui-textfield>
+</section>

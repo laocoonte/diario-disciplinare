@@ -1,0 +1,43 @@
+.fab {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 1000;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    background: var(--tui-primary-bg);
+    color: var(--tui-primary-text);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.fab:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.fab-icon {
+    width: 32px;
+    height: 32px;
+}
+
+
+.enter-animation {
+    animation: slide-fade 1s;
+}
+
+@keyframes slide-fade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

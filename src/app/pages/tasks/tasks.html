@@ -1,1 +1,7 @@
-<p>tasks works!</p>
+<ul>
+    @for (task of tasks(); track task.$id) {
+    <li [attr.data-id]="task.$id" (dragover)="$event.preventDefault()" (drop)="onDrop(task.$id)">
+        <app-task [task]="task" (dragStart)="onDragStart(task.$id)"></app-task>
+    </li>
+    }
+</ul>

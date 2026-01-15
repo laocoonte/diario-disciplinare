@@ -1,0 +1,20 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+:host {
+    ul {
+        margin: 1.5rem auto;
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        gap: .8rem;
+
+        max-width: 1200px;
+
+        @media @tui-desktop-interval {
+            max-width: 1000px;
+        }
+        @media @tui-mobile {
+            max-width: 90%;
+        }
+    }
+}

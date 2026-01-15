@@ -1,0 +1,39 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+.calendar-table {
+  margin: 1rem auto;
+  max-width: 1200px;
+
+  @media @tui-desktop-interval {
+    max-width: 1000px;
+  }
+
+  @media @tui-mobile {
+    max-width: 90%;
+  }
+
+  th>div {
+    display: inline-flex;
+    justify-content: center;
+    gap: .2rem;
+  }
+
+  th,
+  td {
+    padding: .15rem .3rem;
+  }
+
+  td {
+    text-align: center;
+
+    app-calendar-cell {
+      cursor: pointer;
+    }
+  }
+}
+
+.loading-indicator,
+.no-tasks-message {
+  text-align: center;
+  margin: 2rem 0;
+}
