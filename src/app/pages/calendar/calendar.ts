@@ -1,17 +1,15 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { TuiTable, TuiTableControl } from '@taiga-ui/addon-table';
 import { CalendarCell } from './calendar-cell/calendar-cell';
 import { DailyTask } from '../../interfaces/daily-task.interface';
 import { TuiTooltip } from '@taiga-ui/kit';
-import { TuiHint, TuiIcon, TuiLoader } from '@taiga-ui/core';
+import { TuiIcon, TuiLoader } from '@taiga-ui/core';
 import { CalendarInputs } from './calendar-inputs/calendar-inputs';
 
 @Component({
   selector: 'app-calendar',
   imports: [
-    CommonModule,
     CalendarInputs,
     TuiTooltip,
     TuiIcon,
@@ -26,16 +24,16 @@ import { CalendarInputs } from './calendar-inputs/calendar-inputs';
 export class Calendar {
   readonly = input<boolean>(false);
 
-  selectedYear = signal<number>(new Date().getFullYear());
-  selectedMonth = signal<number>(new Date().getMonth() + 1);
-  daysInMonth = signal<number[]>([]);
-  taskService = inject(TaskService);
-  tasks = computed(() => this.taskService.tasks()?.filter((t) => t.active));
-  tasksIds = computed(() => this.tasks()?.map((task) => task.$id) || []);
-  dailyTasks = signal<DailyTask[] | null>(null);
+  protected selectedYear = signal(new Date().getFullYear());
+  protected selectedMonth = signal(new Date().getMonth() + 1);
+  protected daysInMonth = signal<number[]>([]);
+  private taskService = inject(TaskService);
+  protected tasks = computed(() => this.taskService.tasks()?.filter((t) => t.active));
+  protected tasksIds = computed(() => this.tasks()?.map((task) => task.$id) || []);
+  protected dailyTasks = signal<DailyTask[] | null>(null);
 
-  isTaskLoading = computed(() => this.tasks() == null || this.dailyTasks() == null);
-  dataSource = computed(() =>
+  protected isTaskLoading = computed(() => this.tasks() == null || this.dailyTasks() == null);
+  protected dataSource = computed(() =>
     this.daysInMonth().map((day) => {
       const tasksForDay =
         this.dailyTasks()?.filter((task) => {
@@ -55,15 +53,8 @@ export class Calendar {
   }
 
   private changeMonth() {
-    const now = new Date();
-    const month = this.selectedMonth() || now.getMonth();
-    const year = this.selectedYear() || now.getFullYear();
-    if (this.selectedMonth() == null) {
-      this.selectedMonth.set(month);
-    }
-    if (this.selectedYear() == null) {
-      this.selectedYear.set(year);
-    }
+    const month = this.selectedMonth();
+    const year = this.selectedYear();
     const days = new Date(year, month, 0).getDate();
     this.daysInMonth.set(Array.from({ length: days }, (_, i) => i + 1));
 

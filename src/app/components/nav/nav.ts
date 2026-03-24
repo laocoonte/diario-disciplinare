@@ -10,9 +10,9 @@ import { TuiTabs } from '@taiga-ui/kit';
   styleUrl: './nav.less',
 })
 export class NavComponent {
-  router = inject(Router);
-  routes = navRoutes || [];
-  activeItemIndex = signal(0);
+  protected router = inject(Router);
+  protected routes = navRoutes;
+  protected activeItemIndex = signal(0);
 
   ngOnInit() {
     const currentIndex = this.routes.findIndex((route) =>

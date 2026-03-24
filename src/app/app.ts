@@ -1,5 +1,5 @@
 import { TuiButton, TuiRoot } from '@taiga-ui/core';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppwriteService } from './services/appwrite.service';
 import { NavComponent } from './components/nav/nav';
@@ -12,13 +12,10 @@ import { TuiAppBar } from '@taiga-ui/layout';
   styleUrl: './app.less',
 })
 export class App {
-  protected readonly title = signal('diario-disciplinare');
   protected appwrite = inject(AppwriteService);
   protected darkTheme = signal(false);
-  protected loggedUser = computed(() => this.appwrite.loggedInUser());
 
-  ngOnInit() {
-    // Check OS theme preference on app load
+  constructor() {
     const theme = localStorage.getItem('theme');
     if (!theme) {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;

@@ -2,20 +2,21 @@ import { inject, Injectable, signal } from '@angular/core';
 import { AppwriteService } from './appwrite.service';
 import { environment } from '../../environments/environment';
 import { Task } from '../interfaces/task.interface';
-import { ID, Models, Query } from 'appwrite';
+import { ID, Query } from 'appwrite';
 import { TuiToastService } from '@taiga-ui/kit';
 import { DailyTask, DailyTaskStatus } from '../interfaces/daily-task.interface';
+
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  appwrite = inject(AppwriteService);
-  toast = inject(TuiToastService);
+  private appwrite = inject(AppwriteService);
+  private toast = inject(TuiToastService);
   tasks = signal<Task[] | null>(null);
-  tableClient = this.appwrite.tableClient;
+  private tableClient = this.appwrite.tableClient;
 
-  private updateTaskOrderTimeout: any = null;
-  private dailyTasksTimeoutMap: Map<string, number> = new Map();
+  private updateTaskOrderTimeout: ReturnType<typeof setTimeout> | null = null;
+  private dailyTasksTimeoutMap = new Map<string, ReturnType<typeof setTimeout>>();
 
   constructor() {
     this.init();

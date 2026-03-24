@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { TuiButton } from '@taiga-ui/core';
 
 @Component({
@@ -8,6 +8,6 @@ import { TuiButton } from '@taiga-ui/core';
   imports: [TuiButton],
 })
 export class FabButtonComponent {
-  @Input() icon: string = '';
-  @Output() fabClick = new EventEmitter<void>();
+  icon = input('');
+  fabClick = output<void>();
 }

@@ -1,21 +1,5 @@
-import {
-  Component,
-  inject,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  Output,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  input,
-  computed,
-  effect,
-  signal,
-  model,
-} from '@angular/core';
-import { TaskService, UpdateTaskArgs } from '../../../services/task.service';
-import { CommonModule } from '@angular/common';
+import { Component, inject, input, computed, effect, signal, model, output } from '@angular/core';
+import { TaskService } from '../../../services/task.service';
 import { TuiTextfieldComponent, TuiLabel, TuiIcon, TuiButton } from '@taiga-ui/core';
 import { Task } from '../../../interfaces/task.interface';
 import { TuiCheckbox, TuiTextarea } from '@taiga-ui/kit';
@@ -24,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-task',
   imports: [
-    CommonModule,
     FormsModule,
     TuiTextarea,
     TuiTextfieldComponent,
@@ -39,7 +22,7 @@ import { FormsModule } from '@angular/forms';
 export class TaskComponent {
   private taskService = inject(TaskService);
   task = input<Task | null>();
-  @Output() dragStart = new EventEmitter<void>();
+  dragStart = output<void>();
   isLoading = signal(false);
 
   // Signal-based form fields

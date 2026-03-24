@@ -1,17 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { TaskService } from '../../services/task.service';
-import { CommonModule } from '@angular/common';
 import { TaskComponent } from './task/task';
+
 @Component({
   selector: 'app-tasks',
-  imports: [CommonModule, TaskComponent],
+  imports: [TaskComponent],
   templateUrl: './tasks.html',
   styleUrl: './tasks.less',
 })
 export class Tasks {
   private taskService = inject(TaskService);
   protected tasks = this.taskService.tasks;
-  draggedTaskId: string | null = null;
+  private draggedTaskId: string | null = null;
 
   onDragStart(taskId: string) {
     this.draggedTaskId = taskId;

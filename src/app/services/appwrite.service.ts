@@ -3,13 +3,11 @@ import { Client, Account, Models, TablesDB } from 'appwrite';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { TuiToastService } from '@taiga-ui/kit';
-import { take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppwriteService {
-  public ID = Math.random().toString(36).substring(2, 10);
   public client = new Client();
   public account: Account;
   public tableClient: TablesDB;
