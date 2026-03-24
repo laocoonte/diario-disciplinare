@@ -1,20 +1,20 @@
-<div class="form">
-    <tui-icon tabindex="0" size="m" type="button" icon="@tui.grip-vertical" draggable="true"
+<form>
+    <tui-icon [style.font-size.rem]="iconSize()" tabindex="0" type="button" icon="@tui.grip-vertical" draggable="true"
         (dragstart)="onDragStart($event)" style="cursor: grab;" />
-    <tui-textfield>
+    <tui-textfield [tuiTextfieldSize]="size()">
         <input type="text" tuiTextfield [(ngModel)]="title" name="title" />
     </tui-textfield>
-    <tui-textfield>
+    <tui-textfield [tuiTextfieldSize]="size()">
         <textarea tuiTextarea [(ngModel)]="description" name="description">
         </textarea>
     </tui-textfield>
 
     <label tuiLabel class="check-label">
-        <input size="m" tuiCheckbox type="checkbox" [(ngModel)]="active" name="active" />
+        <input tuiCheckbox type="checkbox" [(ngModel)]="active" name="active" />
     </label>
 
     @if(isDirty()) {
-    <button iconStart="@tui.arrow-up-to-line" tuiIconButton appearance="flat" type="button" (click)="updateTask()"
+    <button [style]="size()" iconStart="@tui.arrow-up-to-line" tuiIconButton appearance="flat" type="button" (click)="updateTask()"
         [disabled]="isLoading()"></button>
     }
-</div>
+</form>

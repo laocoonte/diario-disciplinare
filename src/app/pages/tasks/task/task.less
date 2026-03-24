@@ -1,9 +1,12 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
 :host {
-    .form {
+    form {
         display: grid;
-        grid-template-columns: 1.5rem 15rem auto 2rem 1.5rem;
+        grid-template-columns: 1.5rem 15rem auto auto 1.5rem;
         align-items: center;
-        gap: .35rem;
+        column-gap: .8rem;
+        justify-content: center;
 
         tui-icon {
             cursor: grab;
@@ -16,6 +19,15 @@
             align-items: center;
             font: var(--t-label-font);
             color: var(--tui-text-secondary);
+        }
+
+        @media @tui-mobile {
+            grid-template-columns: 1.5rem minmax(5rem, auto) 1fr auto 1.5rem;
+            column-gap: .35rem;
+            
+            input[type="checkbox"] {
+                margin-inline-end: 0;
+            }
         }
     }
 }

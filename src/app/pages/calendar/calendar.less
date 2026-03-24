@@ -12,10 +12,45 @@
     max-width: 90%;
   }
 
+  thead, tbody {
+    display: block;
+    overflow-y: scroll;
+  }
+
+  thead {
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+  }
+
+  tbody {
+    max-height: calc(100vh - 260px);
+  }
+
+  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
   th>div {
     display: inline-flex;
     justify-content: center;
+    align-items: center;
     gap: .2rem;
+    max-width: 100%;
+    overflow: hidden;
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   th,

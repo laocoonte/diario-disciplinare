@@ -1,16 +1,17 @@
 import { Component, inject, input, computed, effect, signal, model, output } from '@angular/core';
 import { TaskService } from '../../../services/task.service';
-import { TuiTextfieldComponent, TuiLabel, TuiIcon, TuiButton } from '@taiga-ui/core';
+import { TuiTextfield, TuiLabel, TuiIcon, TuiButton } from '@taiga-ui/core';
 import { Task } from '../../../interfaces/task.interface';
 import { TuiCheckbox, TuiTextarea } from '@taiga-ui/kit';
 import { FormsModule } from '@angular/forms';
+import { TUI_IS_MOBILE } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-task',
   imports: [
     FormsModule,
     TuiTextarea,
-    TuiTextfieldComponent,
+    TuiTextfield,
     TuiLabel,
     TuiIcon,
     TuiButton,
@@ -21,6 +22,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class TaskComponent {
   private taskService = inject(TaskService);
+  readonly isMobile = inject(TUI_IS_MOBILE);
+  size = computed(() => (this.isMobile ? 's' : 'm'));
+  iconSize = computed(() => (!this.isMobile ? 1.5 : 1));
   task = input<Task | null>();
   dragStart = output<void>();
   isLoading = signal(false);

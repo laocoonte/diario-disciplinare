@@ -1,3 +1,5 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
 section {
     display: flex;
     gap: .5rem;
@@ -6,5 +8,9 @@ section {
 
     tui-textfield {
         flex: 1 1 12rem;
+    }
+
+    @media @tui-mobile {
+        width: 90%;
     }
 }

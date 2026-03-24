@@ -10,7 +10,11 @@
 
     @if(appwrite.loggedInUser()) {
     <span tuiSlot="right" title="User">
-      <span>{{ appwrite.loggedInUser()?.name }}</span>
+      @if(!isMobile){
+        <span>{{ appwrite.loggedInUser()?.name }}</span>
+      } @else {
+        <tui-avatar size="s" [tuiHint]="appwrite.loggedInUser()?.name" [src]="appwrite.loggedInUser()?.name?.charAt(0)" />
+      }
       <button iconStart="@tui.log-out" tuiIconButton (click)="logout()">logout</button>
     </span>
     }
