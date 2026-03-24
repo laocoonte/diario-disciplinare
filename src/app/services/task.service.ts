@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AppwriteService } from './appwrite.service';
 import { environment } from '../../environments/environment';
-import { Task } from '../interfaces/task.interface';
+import { TaskItem } from '../interfaces/task.interface';
 import { ID, Query } from 'appwrite';
 import { TuiToastService } from '@taiga-ui/kit';
 import { DailyTask, DailyTaskStatus } from '../interfaces/daily-task.interface';
@@ -12,7 +12,7 @@ import { DailyTask, DailyTaskStatus } from '../interfaces/daily-task.interface';
 export class TaskService {
   private appwrite = inject(AppwriteService);
   private toast = inject(TuiToastService);
-  tasks = signal<Task[] | null>(null);
+  tasks = signal<TaskItem[] | null>(null);
   private tableClient = this.appwrite.tableClient;
 
   private updateTaskOrderTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -29,7 +29,7 @@ export class TaskService {
   async getTasks() {
     try {
       this.userGuard();
-      const tasksRes = await this.tableClient.listRows<Task>({
+      const tasksRes = await this.tableClient.listRows<TaskItem>({
         databaseId: environment.appwrite.databaseId,
         tableId: 'tasks',
       });
@@ -66,13 +66,13 @@ export class TaskService {
     try {
       this.userGuard();
 
-      const data: Partial<Task> = {
+      const data: Partial<TaskItem> = {
         title: task.title,
         description: task.description,
         active: task.active,
         index: task.index,
       };
-      const updated = await this.tableClient.updateRow<Task>({
+      const updated = await this.tableClient.updateRow<TaskItem>({
         databaseId: environment.appwrite.databaseId,
         tableId: 'tasks',
         rowId: task.$id,
@@ -103,7 +103,7 @@ export class TaskService {
   }
 
   // Add this method to update the order of tasks after drag-and-drop
-  async updateTaskOrder(tasks: Task[]) {
+  async updateTaskOrder(tasks: TaskItem[]) {
     if (this.updateTaskOrderTimeout) {
       clearTimeout(this.updateTaskOrderTimeout);
     }

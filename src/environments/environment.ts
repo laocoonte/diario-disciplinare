@@ -4,5 +4,6 @@ export const environment = {
     endpoint: 'https://fra.cloud.appwrite.io/v1',
     projectId: '69287d6f000e12759234',
     databaseId: '69287d91001d4b84dc9d',
+    teamId: '69c292e60016adb43c28', 
   },
 };

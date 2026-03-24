@@ -1,0 +1,15 @@
+<ul>
+    @for(member of members(); track member.$id) {
+    <li>
+        <span>{{ member.userName }}</span>
+        <button
+            appearance="flat"
+            iconStart="@tui.users"
+            tuiButton
+            type="button"
+        >
+            Observe
+        </button>
+    </li>
+    }
+</ul>

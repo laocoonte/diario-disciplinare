@@ -1,6 +1,6 @@
 import { Models } from 'appwrite';
 
-export interface Task extends Models.Row {
+export interface TaskItem extends Models.Row {
   title: string;
   description: string;
   index: number;

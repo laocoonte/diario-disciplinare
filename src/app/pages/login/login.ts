@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AppwriteService } from '../../services/appwrite.service';
 import { Router } from '@angular/router';
 import { TuiButton, TuiLabel, TuiTextfield } from '@taiga-ui/core';
+import { RolesService } from '../../services/roles.service';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,19 @@ export class Login {
   protected email = '';
   protected password = '';
   private appwrite = inject(AppwriteService);
+  private rolesService = inject(RolesService);
   private router = inject(Router);
 
   constructor() {
     effect(() => {
-      if (this.appwrite.loggedInUser()) {
-        this.router.navigate(['/calendar']);
+      const user = this.appwrite.loggedInUser();
+      const userRoles = this.rolesService.userRoles() != null;
+      if (user && userRoles) {
+        if (this.rolesService.computedRoles()?.some(role => role?.name === 'Observer')) {
+          this.router.navigate(['/', 'observe']);
+        } else {
+          this.router.navigate(['/', 'calendar']);
+        }
       }
     });
   }

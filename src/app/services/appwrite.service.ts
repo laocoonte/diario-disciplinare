@@ -3,6 +3,7 @@ import { Client, Account, Models, TablesDB } from 'appwrite';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { TuiToastService } from '@taiga-ui/kit';
+import { RolesService } from './roles.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class AppwriteService {
   public tableClient: TablesDB;
   public readonly loggedInUser = signal<null | Models.User>(null);
 
+  private rolesService = inject(RolesService);
   private router = inject(Router);
   private toast = inject(TuiToastService);
   constructor() {
@@ -43,7 +45,8 @@ export class AppwriteService {
       });
 
       const user = await this.account.get();
-      this.loggedInUser.set(user);
+      this.updateLoggedInUser(user);
+
     } catch (error) {
       this.updateLoggedInUser(null);
       this.toast
@@ -66,7 +69,21 @@ export class AppwriteService {
     }
   }
 
-  private updateLoggedInUser(user: Models.User | null) {
-    this.loggedInUser.set(user);
+  private async updateLoggedInUser(user: Models.User | null) {
+    try {      
+      if (user) {
+        await this.rolesService.getUserRoles(user.$id);
+      } else {
+        this.rolesService.clean();
+      }
+      this.loggedInUser.set(user);
+    } catch (error) {
+        this.toast
+          .open('Could not fetch user roles: ' + error, {
+            appearance: 'negative',
+          })
+        .subscribe();
+      this.loggedInUser.set(null);
+      }
   }
 }

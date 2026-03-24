@@ -14,6 +14,12 @@ export const navRoutes: Routes = [
     canActivate: [authGuard],
     data: { title: 'Tasks' },
   },
+  {
+    path: 'observe',
+    loadComponent: () => import('./pages/observe/observe').then((m) => m.Observe),
+    canActivate: [authGuard],
+    data: { title: 'Observe' },
+  },
 ];
 
 export const routes: Routes = [
